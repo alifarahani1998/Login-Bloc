@@ -9,13 +9,6 @@ class ThirdScreen extends StatefulWidget {
 }
 
 class _ThirdScreenState extends State<ThirdScreen> {
-  AuthBloc authBloc;
-
-  @override
-  void initState() {
-    super.initState();
-    authBloc = BlocProvider.of<AuthBloc>(context);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +21,7 @@ class _ThirdScreenState extends State<ThirdScreen> {
             child: RaisedButton(
           child: Text('logout'),
           onPressed: () {
-            authBloc.add(LoggedOut());
+            BlocProvider.of<AuthBloc>(context).add(LoggedOut());    // the same as first and second screen initState();
             Navigator.of(context).popUntil((route) => route.settings.name == '/');
           },
         )),
