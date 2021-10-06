@@ -36,7 +36,33 @@ class _HomeScreenState extends State<HomeScreen> {
             RaisedButton(
               child: Text('logout'),
               onPressed: () {
-                authBloc.add(LoggedOut());
+                showDialog<void>(
+                  context: context,
+                  builder: (BuildContext dialogContext) {
+                    return AlertDialog(
+                      content: Text('Do you want to exit?'),
+                      actions: <Widget>[
+                        Row(
+                          children: [
+                            FlatButton(
+                              child: Text('No'),
+                              onPressed: () {
+                                Navigator.of(dialogContext).pop();
+                              },
+                            ),
+                            FlatButton(
+                              child: Text('Yes'),
+                              onPressed: () {
+                                Navigator.of(dialogContext).pop();
+                                authBloc.add(LoggedOut());
+                              },
+                            ),
+                          ],
+                        )
+                      ],
+                    );
+                  },
+                );
               },
             )
           ],

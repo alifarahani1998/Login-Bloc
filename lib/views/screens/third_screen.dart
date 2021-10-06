@@ -9,7 +9,6 @@ class ThirdScreen extends StatefulWidget {
 }
 
 class _ThirdScreenState extends State<ThirdScreen> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,8 +20,34 @@ class _ThirdScreenState extends State<ThirdScreen> {
             child: RaisedButton(
           child: Text('logout'),
           onPressed: () {
-            BlocProvider.of<AuthBloc>(context).add(LoggedOut());    // the same as first and second screen initState();
-            Navigator.of(context).popUntil((route) => route.settings.name == '/');
+            showDialog<void>(
+              context: context,
+              builder: (BuildContext dialogContext) {
+                return AlertDialog(
+                  content: Text('Do you want to exit?'),
+                  actions: <Widget>[
+                    Row(
+                      children: [
+                        FlatButton(
+                          child: Text('No'),
+                          onPressed: () {
+                            Navigator.of(dialogContext).pop();
+                          },
+                        ),
+                        FlatButton(
+                          child: Text('Yes'),
+                          onPressed: () {
+                            BlocProvider.of<AuthBloc>(context).add(LoggedOut());
+                            Navigator.of(context).popUntil(
+                                (route) => route.settings.name == '/');
+                          },
+                        ),
+                      ],
+                    )
+                  ],
+                );
+              },
+            );
           },
         )),
       ),

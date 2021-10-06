@@ -9,24 +9,24 @@ import 'repositories/user_repository.dart';
 import 'routes/routes.dart';
 
 void main() {
-  runApp(App(
+  runApp(MyApp(
     userRepository: UserRepository(),
     appRouter: AppRouter(),
   ));
 }
 
-class App extends StatefulWidget {
+class MyApp extends StatefulWidget {
   final UserRepository userRepository;
   final AppRouter appRouter;
 
-  App({Key key, @required this.userRepository, @required this.appRouter})
+  MyApp({Key key, @required this.userRepository, @required this.appRouter})
       : super(key: key);
 
   @override
-  State<App> createState() => _AppState();
+  State<MyApp> createState() => _MyAppState();
 }
 
-class _AppState extends State<App> {
+class _MyAppState extends State<MyApp> {
   AuthBloc authBloc;
 
   @override

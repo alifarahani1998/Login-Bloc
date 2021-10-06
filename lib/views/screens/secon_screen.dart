@@ -37,8 +37,34 @@ class _SecondScreenState extends State<SecondScreen> {
             RaisedButton(
               child: Text('logout'),
               onPressed: () {
-                authBloc.add(LoggedOut());
-                Navigator.of(context).popUntil((route) => route.settings.name == '/');
+                showDialog<void>(
+                  context: context,
+                  builder: (BuildContext dialogContext) {
+                    return AlertDialog(
+                      content: Text('Do you want to exit?'),
+                      actions: <Widget>[
+                        Row(
+                          children: [
+                            FlatButton(
+                              child: Text('No'),
+                              onPressed: () {
+                                Navigator.of(dialogContext).pop();
+                              },
+                            ),
+                            FlatButton(
+                              child: Text('Yes'),
+                              onPressed: () {
+                                authBloc.add(LoggedOut());
+                                Navigator.of(context).popUntil(
+                                    (route) => route.settings.name == '/');
+                              },
+                            ),
+                          ],
+                        )
+                      ],
+                    );
+                  },
+                );
               },
             )
           ],
